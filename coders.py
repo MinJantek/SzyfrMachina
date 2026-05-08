@@ -1,0 +1,12 @@
+def sylabowe(txt,code,tryb):
+    return 1
+def morsa(txt,code):
+    return 2
+def matematyczny(txt,code):
+    return 3
+def ulamkowy(txt,code):
+    return 4
+def komorkowy(txt,code):
+    return 5
+def cezara(txt,code,tryb):
+    return 6

@@ -2,43 +2,80 @@ import pygame
 import random
 from setup import *
 from frame import Frame
+from coders import *
+pygame.init()
+pygame.font.init()
 screen = pygame.display.set_mode([SCREEN_WIDTH,SCREEN_HEIGHT])
 background = pygame.image.load(f"{IMAGE_PATH}/SzyfrMachina_background.png")
+lever = pygame.image.load(f"{IMAGE_PATH}/SzyfrMachina_lever.png")
 picked = "frame2"
 picked2 = "frame7"
+font = pygame.font.SysFont("Impact",24)
 active = True
-frame1 = Frame((20,20),"SzyfrMachina_200.60.png")
-frame2 = Frame((220,20),"SzyfrMachina_200.60.png")
-frame3 = Frame((420,20),"SzyfrMachina_200.60.png")
-frame4 = Frame((620,20),"SzyfrMachina_200.60.png")
-frame5 = Frame((820,20),"SzyfrMachina_200.60.png")
-frame6 = Frame((1020,20),"SzyfrMachina_200.60.png")
+frame1 = Frame((20,20),"SzyfrMachina_200.60.png","sylabowe")
+frame2 = Frame((220,20),"SzyfrMachina_200.60.png","morsa")
+frame3 = Frame((420,20),"SzyfrMachina_200.60.png","matematyczny")
+frame4 = Frame((620,20),"SzyfrMachina_200.60.png","ulamkowy")
+frame5 = Frame((820,20),"SzyfrMachina_200.60.png","komorkowy")
+frame6 = Frame((1020,20),"SzyfrMachina_200.60.png","cezara")
 
-frame7 = Frame((230,106),"SzyfrMachina_1000.300.png")
-frame8 = Frame((230,406),"SzyfrMachina_1000.300.png")
+frame7 = Frame((230,106),"SzyfrMachina_1000.300.png","")
+frame8 = Frame((230,406),"SzyfrMachina_1000.300.png","")
+frame9 = Frame((790,730),"SzyfrMachina_lever.png","")
+text1 = ""
+text2 = ""
 while active:
     screen.blit(background,(0,0))
+    if picked2 == "frame7": screen.blit(lever,(765,730))
+    elif picked2 == "frame8": screen.blit(lever,(815,730))
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 active = False
                 print("________tekst szyfru_______")
                 print("________tekst szyfru_______")
+            elif event.key == pygame.K_BACKSPACE:
+                if picked2 == "frame8":
+                    if text2:
+                        text2 = text2[:-1]
+                elif picked2 == "frame7":
+                    if text1:
+                        text1 = text1[:-1]
+            else: 
+                if picked2 == "frame8":
+                    text2 += event.unicode
+                    szyfruj = False
+                    code_type = eval(f"{picked}.code_name")
+                    text1 = eval(f"{code_type}('{text2}',szyfruj)")
+                elif picked2 == "frame7":
+                    text1 += event.unicode
+                    szyfruj = True
+                    code_type = eval(f"{picked}.code_name")
+                    text2 = eval(f"{code_type}('{text1}',szyfruj)")
+                else:
+                    pass
         elif event.type == pygame.MOUSEBUTTONDOWN:
             for i in range(1,7):
                 if eval(f"frame{i}.rect.collidepoint(pygame.mouse.get_pos())"):
                     picked = f"frame{i}"
-                    print("ANTEk")
+                    if picked2 == "frame8":
+                        szyfruj = False
+                        code_type = eval(f"{picked}.code_name")
+                        text1 = eval(f"{code_type}('{text2}',szyfruj)")
+                    elif picked2 == "frame7":
+                        szyfruj = True
+                        code_type = eval(f"{picked}.code_name")
+                        text2 = eval(f"{code_type}('{text1}',szyfruj)")
                     break
-            for i in range(7,9):
+            for i in range(7,10):
                 if eval(f"frame{i}.rect.collidepoint(pygame.mouse.get_pos())"):
+                    if i == 9 and picked2 == "frame7": i = 8
+                    if i == 9 and picked2 == "frame8": i = 7
                     picked2 = f"frame{i}"
-                    print("ANTEkkkkkk")
                     break
-    for i in range(1,9):
+    for i in range(1,10):
         a = eval(f"frame{i}.render('{picked}','{picked2}','frame{i}')")
         eval(f"{a}")
-
-
-    
+    screen.blit((font.render(f"{text1}",False,(255,255,255))),(240,116))
+    screen.blit((font.render(f"{text2}",False,(255,255,255))),(240,416))
     pygame.display.flip()
