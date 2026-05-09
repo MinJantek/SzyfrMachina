@@ -32,28 +32,34 @@ while active:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 active = False
-                print("________tekst szyfru_______")
-                print("________tekst szyfru_______")
+                print(text1)
+                print(text2)
             elif event.key == pygame.K_BACKSPACE:
                 if picked2 == "frame8":
                     if text2:
                         text2 = text2[:-1]
+                        a = endecypher(picked2,text1,text2)
+                        b = eval(f"{picked}.code_name")
+                        text1 = eval(f"{b}{a}")
                 elif picked2 == "frame7":
                     if text1:
                         text1 = text1[:-1]
+                        a = endecypher(picked2,text1,text2)
+                        b = eval(f"{picked}.code_name")
+                        text2 = eval(f"{b}{a}")
             else: 
                 if picked2 == "frame8":
-                    text2 += event.unicode
-                    szyfruj = False
-                    code_type = eval(f"{picked}.code_name")
-                    text1 = eval(f"{code_type}('{text2}',szyfruj)")
+                    text2 += str(event.unicode)
+                    a = endecypher(picked2,text1,text2)
+                    b = eval(f"{picked}.code_name")
+                    text1 = eval(f"{b}{a}")
                 elif picked2 == "frame7":
-                    text1 += event.unicode
-                    szyfruj = True
-                    code_type = eval(f"{picked}.code_name")
-                    text2 = eval(f"{code_type}('{text1}',szyfruj)")
+                    text1 += str(event.unicode)
+                    a = endecypher(picked2,text1,text2)
+                    b = eval(f"{picked}.code_name")
+                    text2 = eval(f"{b}{a}")
                 else:
-                    pass
+                    print(picked2)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             for i in range(1,7):
                 if eval(f"frame{i}.rect.collidepoint(pygame.mouse.get_pos())"):
@@ -79,3 +85,4 @@ while active:
     screen.blit((font.render(f"{text1}",False,(255,255,255))),(240,116))
     screen.blit((font.render(f"{text2}",False,(255,255,255))),(240,416))
     pygame.display.flip()
+frame1.code_name
