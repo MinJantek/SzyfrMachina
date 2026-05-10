@@ -17,7 +17,21 @@ class Frame(pygame.sprite.Sprite):
         if name == picked or name == picked2: return f"screen.blit({name}.image,{name}.rect)"
 
 class Rectangle(pygame.sprite.Sprite):
-    pass
+    def __init__(self,coordinates,file):
+        super().__init__()
+        self.image = pygame.image.load(f"{IMAGE_PATH}/{file}")
+        self.rect = self.image.get_rect(topleft = coordinates)
+
+    def isshown(self,passa,frame1):
+        if self.rect.collidepoint(pygame.mouse.get_pos()):
+            if passa == True: return True
+            else: return False
+        else:
+            if frame1.rect.collidepoint(pygame.mouse.get_pos()):
+                return True
+            return False
+
+             
         
         
          
