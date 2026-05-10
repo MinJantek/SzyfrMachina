@@ -64,6 +64,10 @@ while active:
                     text2 = eval(f"{b}{a}")
                 else:
                     print(picked2)
+        elif event.type == pygame.QUIT:
+            active = False
+            print(text1)
+            print(text2)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             for i in range(1,7):
                 if eval(f"frame{i}.rect.collidepoint(pygame.mouse.get_pos())"):
