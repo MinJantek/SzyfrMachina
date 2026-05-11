@@ -38,6 +38,10 @@ while active:
                 active = False
                 print(text1)
                 print(text2)
+            elif event.key == pygame.K_RIGHT:
+                if picked != "frame6":
+                    pass
+
             elif event.key == pygame.K_BACKSPACE:
                 if picked2 == "frame8":
                     if text2:
