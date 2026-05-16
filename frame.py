@@ -12,12 +12,14 @@ class Frame(pygame.sprite.Sprite):
         self.code_name = code_name
 
 
-    def render(self,picked,picked2,name):
+    def render(self,picked,picked2,name,passa):
 
 
-        #self.image = copy.deepcopy(self.image_orginal)
-        self.image = pygame.image.load(f"{IMAGE_PATH}/{self.file}")
-        
+        self.image = copy.copy(self.image_orginal)
+        #self.image = pygame.image.load(f"{IMAGE_PATH}/{self.file}")
+        for i in range(10,24):
+            if name == f"frame{i}" and passa == False:
+                return None
 
         if self.rect.collidepoint(pygame.mouse.get_pos()):
             self.mask = True
@@ -35,7 +37,10 @@ class Rectangle(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft = coordinates)
 
 
-    def isshown(self,passa,frame1):
+    def isshown(self,passa,frame1,picked):
+        for i in range(10,24):
+            if picked == f"frame{i}":return True
+        if picked == "frame1":return True
         if self.rect.collidepoint(pygame.mouse.get_pos()):
             if passa == True: return True
             else: return False

@@ -27,6 +27,12 @@ def endecypher(picked,picked2,text1,text2,trybe1,trybe2):
             print(a)
             return a
 
+def encypher(picked2):
+    if picked2 == "frame8":
+            return False
+    elif picked2 == "frame7":
+            return True
+
 
 
 
