@@ -21,7 +21,7 @@ frame6 = Frame((1020,20),"SzyfrMachina_200.60.png","cezara")
 
 frame7 = Frame((230,106),"SzyfrMachina_1000.300.png","")
 frame8 = Frame((230,406),"SzyfrMachina_1000.300.png","")
-frame9 = Frame((790,730),"SzyfrMachina_lever.png","")
+frame9 = Rectangle((790,730),"SzyfrMachina_lever.png")
 sylab = Rectangle((20,80),"SzyfrMachina_sylab.png")
 
 frame10 = Frame((20,80),"SzyfrMachina_200.60.png","MALIOWEBUTY")

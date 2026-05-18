@@ -48,6 +48,12 @@ class Rectangle(pygame.sprite.Sprite):
             if frame1.rect.collidepoint(pygame.mouse.get_pos()):
                 return True
             return False
+    def render(self,picked,picked2,name,passa):
+        if self.rect.collidepoint(pygame.mouse.get_pos()):
+            self.image2 = copy.copy(self.image)
+            self.image2.fill((130,130,130),special_flags=pygame.BLEND_ADD)
+            return f"screen.blit({name}.image2,{name}.rect)"
+
 
              
         
