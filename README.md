@@ -49,6 +49,8 @@ pip install pygame
 
 ## Usage
 
+1. You can select whatever code type you want by clicking on it or using arrow keys
+2. 
 ### Running the Application
 
 To start the SzyfrMachina application, run:
