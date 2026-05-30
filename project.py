@@ -51,17 +51,31 @@ while active:
                 print(text1)
                 print(text2)
             elif event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                if event.key == pygame.K_LEFT:
+                if event.key == pygame.K_LEFT and not picked[-2].isdigit():
                     if picked != "frame1":
                         picked = f"frame{int(picked[-1])-1}"
                 elif event.key == pygame.K_RIGHT:
-                    if picked != "frame6":
+                    if picked != "frame6" and not picked[-2].isdigit():
                         picked = f"frame{int(picked[-1])+1}"
-                code_name = eval(f"{picked}.code_name")
-                if picked == "frame6":text2 = eval(f"{code_name}('{text2}',{encypher(picked2)},{trybe_cezar})")
-                elif picked == "frame1":text2 = eval(f"{code_name}('{text2}',{encypher(picked2)},'{trybe_sylab}')")
-                else:text2 = eval(f"{code_name}('{text2}',{encypher(picked2)})")
-                break   
+                if not picked[-2].isdigit():
+                    code_name = eval(f"{picked}.code_name")
+                    if picked == "frame6":text2 = eval(f"{code_name}('{text2}',{encypher(picked2)},{trybe_cezar})")
+                    elif picked == "frame1":text2 = eval(f"{code_name}('{text2}',{encypher(picked2)},'{trybe_sylab}')")
+                    else:text2 = eval(f"{code_name}('{text2}',{encypher(picked2)})")
+                    break   
+            elif event.key == pygame.K_DOWN or event.key == pygame.K_UP:
+                if picked[-2].isdigit() or picked == "frame1":
+                    if event.key == pygame.K_DOWN and picked != "frame20":
+                        if picked == "frame1": picked = "frame10"
+                        elif int(picked[-2]+picked[-1]) >= 10:
+                            picked = picked = f"frame{int(picked[-2]+picked[-1])+1}"
+                    if event.key == pygame.K_UP and picked != "frame1":
+                        if picked == "frame10":picked = "frame1"
+                        else:picked = picked = f"frame{int(picked[-2]+picked[-1])-1}"
+                trybe_sylab = eval(f"{picked}.code_name")
+                text2 = eval(f"sylabowe('{text2}',{encypher(picked2)},'{trybe_sylab}')")
+
+
 
             elif event.key == pygame.K_BACKSPACE:
                 code_name = eval(f"{picked}.code_name")
