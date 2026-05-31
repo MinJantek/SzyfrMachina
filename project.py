@@ -82,27 +82,51 @@ while active:
                 if picked2 == "frame8":
                     if text2: 
                         text2 = text2[:-1]
-                        if picked == "frame1":text1 = eval(f"{code_name}('{text2}',False,'{trybe_sylab}')")
+                        for i in range(10,21):
+                            if f"frame{i}" == picked:
+                                trybe_sylab = eval(f"{picked}.code_name")
+                                print(trybe_sylab)
+                                text1 = eval(f"sylabowe('{text2}',{encypher(picked2)},'{trybe_sylab}')")
+                                break
+                        if picked == "frame1":text1 = eval(f"{code_name}('{text2}',True,'GADERYPOLUKI')")
                         elif picked == "frame6":text1 = eval(f"{code_name}('{text2}',True,'{trybe_cezar}')")
-                        else:text2 = eval(f"{code_name}('{text2}',True)")
-                elif picked2 == "frame7": 
+                        elif picked == "frame2" or picked == "frame3" or picked == "frame4" or picked == "frame5":text1 = eval(f"{code_name}('{text2}',True)")
+                elif picked2 == "frame7":
                     if text1: 
                         text1 = text1[:-1]
-                        if picked == "frame1":text2 = eval(f"{code_name}('{text2}',True,'{trybe_sylab}')")
-                        elif picked == "frame6":text2 = eval(f"{code_name}('{text2}',True,'{trybe_cezar}')")
-                        else:text2 = eval(f"{code_name}('{text2}',True)")
+                        for i in range(10,21):
+                            if f"frame{i}" == picked:
+                                trybe_sylab = eval(f"{picked}.code_name")
+                                print(trybe_sylab)
+                                text2 = eval(f"sylabowe('{text1}',{encypher(picked2)},'{trybe_sylab}')")
+                                break
+                        if picked == "frame1":text2 = eval(f"{code_name}('{text1}',True,'GADERYPOLUKI')")
+                        elif picked == "frame6":text2 = eval(f"{code_name}('{text1}',True,'{trybe_cezar}')")
+                        elif picked == "frame2" or picked == "frame3" or picked == "frame4" or picked == "frame5":text2 = eval(f"{code_name}('{text2}',True)")
             else:
                 code_name = eval(f"{picked}.code_name")
                 if picked2 == "frame8":
                     text2 += str(event.unicode)
-                    if picked == "frame1":text1 = eval(f"{code_name}('{text2}',False,'GADERYPOLUKI')")
+                    for i in range(10,21):
+                        if f"frame{i}" == picked:
+                            trybe_sylab = eval(f"{picked}.code_name")
+                            print(trybe_sylab)
+                            text1 = eval(f"sylabowe('{text2}',{encypher(picked2)},'{trybe_sylab}')")
+                            break
+                    if picked == "frame1":text1 = eval(f"{code_name}('{text2}',True,'GADERYPOLUKI')")
                     elif picked == "frame6":text1 = eval(f"{code_name}('{text2}',True,'{trybe_cezar}')")
-                    else:text2 = eval(f"{code_name}('{text2}',True)")
+                    elif picked == "frame2" or picked == "frame3" or picked == "frame4" or picked == "frame5":text1 = eval(f"{code_name}('{text2}',True)")
                 elif picked2 == "frame7":
                     text1 += str(event.unicode)
-                    if picked == "frame1":text2 = eval(f"{code_name}('{text2}',True,'{trybe_sylab}')")
-                    elif picked == "frame6":text2 = eval(f"{code_name}('{text2}',True,'{trybe_cezar}')")
-                    else:text2 = eval(f"{code_name}('{text2}',True)")
+                    for i in range(10,21):
+                        if f"frame{i}" == picked:
+                            trybe_sylab = eval(f"{picked}.code_name")
+                            print(trybe_sylab)
+                            text2 = eval(f"sylabowe('{text1}',{encypher(picked2)},'{trybe_sylab}')")
+                            break
+                    if picked == "frame1":text2 = eval(f"{code_name}('{text1}',True,'GADERYPOLUKI')")
+                    elif picked == "frame6":text2 = eval(f"{code_name}('{text1}',True,'{trybe_cezar}')")
+                    elif picked == "frame2" or picked == "frame3" or picked == "frame4" or picked == "frame5":text2 = eval(f"{code_name}('{text2}',True)")
                 else:
                     print(picked2)
         elif event.type == pygame.QUIT:
@@ -115,7 +139,10 @@ while active:
                     picked = f"frame{i}"
                     code_name = eval(f"{picked}.code_name")
                     if picked == "frame6":text2 = eval(f"{code_name}('{text2}',{encypher(picked2)},{trybe_cezar})")
-                    elif picked == "frame1":text2 = eval(f"{code_name}('{text2}',{encypher(picked2)},'{trybe_sylab}')")
+                    elif picked == "frame1":
+                        print(code_name)
+                        if picked2 == "frame7":text2 = eval(f"{code_name}('{text1}',{encypher(picked2)},'GADERYPOLUKI')")
+                        elif picked2 == "frame8":text1 = eval(f"{code_name}('{text2}',{encypher(picked2)},'GADERYPOLUKI')")
                     else:text2 = eval(f"{code_name}('{text2}',{encypher(picked2)})")
                     break   
             for i in range(7,10):
@@ -128,7 +155,8 @@ while active:
                 if eval(f"frame{i}.rect.collidepoint(pygame.mouse.get_pos())") and passa == True:
                     picked = f"frame{i}"
                     trybe_sylab = eval(f"{picked}.code_name")
-                    text2 = eval(f"sylabowe('{text2}',{encypher(picked2)},'{trybe_sylab}')")
+                    if picked2 == "frame7":text2 = eval(f"sylabowe('{text1}',{encypher(picked2)},'{trybe_sylab}')")
+                    else:text1 = eval(f"sylabowe('{text2}',{encypher(picked2)},'{trybe_sylab}')")
 
     if frame1.rect.collidepoint(pygame.mouse.get_pos()) or picked == "frame1":
         passa = True
