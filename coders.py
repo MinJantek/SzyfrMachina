@@ -1,3 +1,36 @@
+import random
+
+matma = {
+    "A" : 1,
+    "Ą" : 1,
+    "B" : 2,
+    "C" : 3,
+    "Ć" : 3,
+    "D" : 4,
+    "E" : 5,
+    "Ę" : 5,
+    "F" : 6,
+    "G" : 7,
+    "H" : 8,
+    "I" : 9,
+    "J" : 10,
+    "K" : 11,   
+    "L" : 12,
+    "M" : 13,
+    "N" : 14,
+    "O" : 15,
+    "Ó" : 15,
+    "P" : 16,
+    "R" : 17,
+    "S" : 18,
+    "Ś" : 18,
+    "T" : 19,
+    "U" : 20,
+    "W" : 21,
+    "Y" : 22,
+    "Z" : 23
+}
+
 def endecypher(picked,picked2,text1,text2,trybe1,trybe2):
     if picked == "frame1":
         if picked2 == "frame8":
@@ -76,8 +109,60 @@ def sylabowe(txt, code, tryb):
 
 def morsa(txt,code):
     return "2"
-def matematyczny(txt,code):
-    return "3"
+
+    
+
+
+
+reverse_matma = {}
+for letter, number in matma.items():
+    if number not in reverse_matma:
+        reverse_matma[number] = letter
+
+math_signs = ["+", "-", "*", ":"]
+
+def matematyczny(txt: str, code: bool) -> str:
+    if code:
+        txt = txt.upper()
+        numbers = []
+        
+        for char in txt:
+            if char in matma:
+                numbers.append(str(matma[char]))
+        
+        # Join numbers with random math signs as separators
+        result = ""
+        for i, num in enumerate(numbers):
+            result += num
+            if i != len(numbers) - 1:  # Don't add sign after last number
+                result += random.choice(math_signs)
+        
+        return result
+    
+    else:
+        # DECIPHER: Split by math signs to get individual numbers, then convert to letters
+        cleaned = txt
+        
+        # Replace all math signs with a common separator (e.g., space)
+        for sign in math_signs:
+            cleaned = cleaned.replace(sign, " ")
+        
+        # Split by space to get individual numbers
+        number_strings = cleaned.split()
+        
+        # Convert numbers back to letters
+        result = ""
+        for num_str in number_strings:
+            if num_str.isdigit():
+                num = int(num_str)
+                if num in reverse_matma:
+                    result += reverse_matma[num]
+        
+        return result
+
+
+
+
 def ulamkowy(txt,code):
     return "4"
 def komorkowy(txt,code):
@@ -85,3 +170,10 @@ def komorkowy(txt,code):
 def cezara(txt,code,trybe):
     return "6"
 
+original_text = "we"
+print(f"Original: {original_text}")
+enciphered = matematyczny(original_text, True)
+print(f"Enciphered: {enciphered}")
+deciphered = matematyczny(enciphered, False)
+print(f"Deciphered: {deciphered}")
+print(f"Match: {original_text == deciphered}\n")

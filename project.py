@@ -38,6 +38,7 @@ frame20 = Frame((20,680),"SzyfrMachina_200.60.png","CUSTOM")
 text1 = ""
 text2 = ""
 passa = False
+code = True 
 trybe_sylab = "GADERYPOLUKI"
 trybe_cezar = 0
 while active:
@@ -88,9 +89,9 @@ while active:
                                 print(trybe_sylab)
                                 text1 = eval(f"sylabowe('{text2}',{encypher(picked2)},'{trybe_sylab}')")
                                 break
-                        if picked == "frame1":text1 = eval(f"{code_name}('{text2}',True,'GADERYPOLUKI')")
-                        elif picked == "frame6":text1 = eval(f"{code_name}('{text2}',True,'{trybe_cezar}')")
-                        elif picked == "frame2" or picked == "frame3" or picked == "frame4" or picked == "frame5":text1 = eval(f"{code_name}('{text2}',True)")
+                        if picked == "frame1":text1 = eval(f"{code_name}('{text2}',False,'GADERYPOLUKI')")
+                        elif picked == "frame6":text1 = eval(f"{code_name}('{text2}',False,'{trybe_cezar}')")
+                        elif picked == "frame2" or picked == "frame3" or picked == "frame4" or picked == "frame5":text1 = eval(f"{code_name}('{text2}',False)")
                 elif picked2 == "frame7":
                     if text1: 
                         text1 = text1[:-1]
@@ -113,9 +114,9 @@ while active:
                             print(trybe_sylab)
                             text1 = eval(f"sylabowe('{text2}',{encypher(picked2)},'{trybe_sylab}')")
                             break
-                    if picked == "frame1":text1 = eval(f"{code_name}('{text2}',True,'GADERYPOLUKI')")
-                    elif picked == "frame6":text1 = eval(f"{code_name}('{text2}',True,'{trybe_cezar}')")
-                    elif picked == "frame2" or picked == "frame3" or picked == "frame4" or picked == "frame5":text1 = eval(f"{code_name}('{text2}',True)")
+                    if picked == "frame1":text1 = eval(f"{code_name}('{text2}',False,'GADERYPOLUKI')")
+                    elif picked == "frame6":text1 = eval(f"{code_name}('{text2}',False,'{trybe_cezar}')")
+                    elif picked == "frame2" or picked == "frame3" or picked == "frame4" or picked == "frame5":text1 = eval(f"{code_name}('{text2}',False)")
                 elif picked2 == "frame7":
                     text1 += str(event.unicode)
                     for i in range(10,21):
@@ -168,4 +169,3 @@ while active:
     screen.blit((font.render(f"{text1}",False,(255,255,255))),(240,116))
     screen.blit((font.render(f"{text2}",False,(255,255,255))),(240,416))
     pygame.display.flip()
-frame1.code_name
