@@ -135,16 +135,13 @@ while active:
             print(text1)
             print(text2)
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            for i in range(1,7):
+            for i in range(2,6):
                 if eval(f"frame{i}.rect.collidepoint(pygame.mouse.get_pos())"):
                     picked = f"frame{i}"
                     code_name = eval(f"{picked}.code_name")
-                    if picked == "frame6":text2 = eval(f"{code_name}('{text2}',{encypher(picked2)},{trybe_cezar})")
-                    elif picked == "frame1":
-                        print(code_name)
-                        if picked2 == "frame7":text2 = eval(f"{code_name}('{text1}',{encypher(picked2)},'GADERYPOLUKI')")
-                        elif picked2 == "frame8":text1 = eval(f"{code_name}('{text2}',{encypher(picked2)},'GADERYPOLUKI')")
-                    else:text2 = eval(f"{code_name}('{text2}',{encypher(picked2)})")
+                    if picked == "frame6":text2 = eval(f"{code_name}('{text1}',{encypher(picked2)},{trybe_cezar})")
+                    elif picked == "frame1":text2 = eval(f"{code_name}('{text1}',{encypher(picked2)},'GADERYPOLUKI')")
+                    else:text2 = eval(f"{code_name}('{text1}',{encypher(picked2)})")
                     break   
             for i in range(7,10):
                 if eval(f"frame{i}.rect.collidepoint(pygame.mouse.get_pos())"):
@@ -154,11 +151,42 @@ while active:
                     break
             for i in range(10,21):
                 if eval(f"frame{i}.rect.collidepoint(pygame.mouse.get_pos())") and passa == True:
+                    done = False
+                    before = picked
                     picked = f"frame{i}"
-                    trybe_sylab = eval(f"{picked}.code_name")
-                    if picked2 == "frame7":text2 = eval(f"sylabowe('{text1}',{encypher(picked2)},'{trybe_sylab}')")
-                    else:text1 = eval(f"sylabowe('{text2}',{encypher(picked2)},'{trybe_sylab}')")
-
+                    code_name = eval(f"{picked}.code_name")
+                    for b in range(10,21):
+                        if before == f"frame{b}" or before == "frame1" or before == "frame6":
+                            if picked2 == "frame7":text2 = eval(f"sylabowe('{text1}',{encypher(picked2)},'{code_name}')")
+                            elif picked2 == "frame8":text1 = eval(f"sylabowe('{text2}',{encypher(picked2)},'{code_name}')")
+                            done = True
+                            break
+                    if not done:text2 = eval(f"sylabowe('{text1}',{encypher(picked2)},'{code_name}')")
+            if frame1.rect.collidepoint(pygame.mouse.get_pos()):
+                done = False
+                before = picked
+                picked = "frame1"
+                for b in range(10,21):
+                    done = False
+                    if before == f"frame{b}" or before == "frame1" or before == "frame6":
+                        if picked2 == "frame7":text2 = eval(f"sylabowe('{text1}',{encypher(picked2)},'GADERYPOLUKI')")
+                        elif picked2 == "frame8":text1 = eval(f"sylabowe('{text2}',{encypher(picked2)},'GADERYPOLUKI')")
+                        done = True
+                if not done:text2 = sylabowe(text1,encypher(picked2),'GADERYPOLUKI')
+            elif frame6.rect.collidepoint(pygame.mouse.get_pos()):
+                done = False
+                before = picked
+                picked = "frame6"
+                for b in range(10,21):
+                    if before == f"frame{b}" or before == "frame1" or before == "frame6":
+                        if picked2 == "frame7":text2 = eval(f"cezara('{text1}',{encypher(picked2)},{trybe_cezar})")
+                        elif picked2 == "frame8":text1 = eval(f"cezara('{text2}',{encypher(picked2)},{trybe_cezar})")
+                        done = True
+                        print(before)
+                        break
+                if not done:
+                    text2 = cezara(text1,encypher(picked2),trybe_cezar)
+                    print("AAAAAAAAAAAAAAAAAAAAAAAAa")
     if frame1.rect.collidepoint(pygame.mouse.get_pos()) or picked == "frame1":
         passa = True
     if sylab.isshown(passa,frame1,picked):screen.blit(sylab.image,sylab.rect)

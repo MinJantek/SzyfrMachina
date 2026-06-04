@@ -170,10 +170,5 @@ def komorkowy(txt,code):
 def cezara(txt,code,trybe):
     return "6"
 
-original_text = "we"
-print(f"Original: {original_text}")
-enciphered = matematyczny(original_text, True)
-print(f"Enciphered: {enciphered}")
-deciphered = matematyczny(enciphered, False)
-print(f"Deciphered: {deciphered}")
-print(f"Match: {original_text == deciphered}\n")
+
+
