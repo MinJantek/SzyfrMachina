@@ -199,13 +199,13 @@ while active:
         a = eval(f"frame{i}.render('{picked}','{picked2}','frame{i}',{passa})")
         eval(f"{a}")
     #średnia długość - ilość pikseli zajmowanych przez tekst / ilość znaków w tekście
-    #tekst linijki - text1[int(i//srednia1):int((i+PIXELE_TEKSTU)//srednia1)]
-    #ilość linijek - font.size(text1)[0]/PIXELE_TEKSTU
+    #tekst linijki - text1[int(i//srednia1):int((i+pixele_tekstu)//srednia1)]
+    #ilość linijek - font.size(text1)[0]/pixele_tekstu
     #
     srednia1 = font.size(text1)[0]/len(text1) if text1 else 0
     srednia2 = font.size(text2)[0]/len(text2) if text2 else 0
-    for i in range(0,font.size(text1)[0],PIXELE_TEKSTU):
-        screen.blit(font.render(text1[int(i//srednia1):int((i+PIXELE_TEKSTU)//srednia1)],False,(255,255,255)),(240,116+i/PIXELE_TEKSTU*font.size(text1)[1]))
-    for i in range(0,font.size(text2)[0],PIXELE_TEKSTU):
-        screen.blit(font.render(text2[int(i//srednia2):int((i+PIXELE_TEKSTU)//srednia2)],False,(255,255,255)),(240,416+i/PIXELE_TEKSTU*font.size(text2)[1]))
+    for i in range(0,font.size(text1)[0],pixele_tekstu):
+        screen.blit(font.render(text1[int(i//srednia1):int((i+pixele_tekstu)//srednia1)],False,(255,255,255)),(240,116+i/pixele_tekstu*font.size(text1)[1]))
+    for i in range(0,font.size(text2)[0],pixele_tekstu):
+        screen.blit(font.render(text2[int(i//srednia2):int((i+pixele_tekstu)//srednia2)],False,(255,255,255)),(240,416+i/pixele_tekstu*font.size(text2)[1]))
     pygame.display.flip()
