@@ -23,6 +23,7 @@ frame7 = Frame((230,106),"SzyfrMachina_1000.300.png","")
 frame8 = Frame((230,406),"SzyfrMachina_1000.300.png","")
 frame9 = Rectangle((790,730),"SzyfrMachina_lever.png")
 sylab = Rectangle((20,80),"SzyfrMachina_sylab.png")
+clear = Rectangle((1130,700),"SzyfrMachina_clear.png")
 
 frame10 = Frame((20,80),"SzyfrMachina_200.60.png","MALIOWEBUTY")
 frame11 = Frame((20,140),"SzyfrMachina_200.60.png","NOWEBUTYLISA")
@@ -45,6 +46,7 @@ while active:
     screen.blit(background,(0,0))
     if picked2 == "frame7": screen.blit(lever,(765,730))
     elif picked2 == "frame8": screen.blit(lever,(815,730))
+    if clear.rect.collidepoint(pygame.mouse.get_pos()):screen.blit(clear.image,clear.rect)
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
@@ -186,6 +188,9 @@ while active:
                         break
                 if not done:
                     text2 = cezara(text1,encypher(picked2),trybe_cezar)
+            elif clear.rect.collidepoint(pygame.mouse.get_pos()):
+                text1 = ""
+                text2 = ""
     if frame1.rect.collidepoint(pygame.mouse.get_pos()) or picked == "frame1":
         passa = True
     if sylab.isshown(passa,frame1,picked):screen.blit(sylab.image,sylab.rect)
@@ -193,6 +198,14 @@ while active:
     for i in range(1,21):
         a = eval(f"frame{i}.render('{picked}','{picked2}','frame{i}',{passa})")
         eval(f"{a}")
-    screen.blit((font.render(f"{text1}",False,(255,255,255))),(240,116))
-    screen.blit((font.render(f"{text2}",False,(255,255,255))),(240,416))
+    #średnia długość - ilość pikseli zajmowanych przez tekst / ilość znaków w tekście
+    #tekst linijki - text1[int(i//srednia1):int((i+PIXELE_TEKSTU)//srednia1)]
+    #ilość linijek - font.size(text1)[0]/PIXELE_TEKSTU
+    #
+    srednia1 = font.size(text1)[0]/len(text1) if text1 else 0
+    srednia2 = font.size(text2)[0]/len(text2) if text2 else 0
+    for i in range(0,font.size(text1)[0],PIXELE_TEKSTU):
+        screen.blit(font.render(text1[int(i//srednia1):int((i+PIXELE_TEKSTU)//srednia1)],False,(255,255,255)),(240,116+i/PIXELE_TEKSTU*font.size(text1)[1]))
+    for i in range(0,font.size(text2)[0],PIXELE_TEKSTU):
+        screen.blit(font.render(text2[int(i//srednia2):int((i+PIXELE_TEKSTU)//srednia2)],False,(255,255,255)),(240,416+i/PIXELE_TEKSTU*font.size(text2)[1]))
     pygame.display.flip()
