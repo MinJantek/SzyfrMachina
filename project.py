@@ -10,8 +10,8 @@ background = pygame.image.load(f"{IMAGE_PATH}/SzyfrMachina_background.png")
 lever = pygame.image.load(f"{IMAGE_PATH}/SzyfrMachina_lever.png")
 picked = "frame2"
 picked2 = "frame7"
-font = pygame.font.SysFont("Impact",24)
 active = True
+font =pygame.font.SysFont("",30)
 frame1 = Frame((20,20),"SzyfrMachina_200.60.png","sylabowe")
 frame2 = Frame((220,20),"SzyfrMachina_200.60.png","morsa")
 frame3 = Frame((420,20),"SzyfrMachina_200.60.png","matematyczny")
@@ -75,9 +75,9 @@ while active:
                         else:picked = picked = f"frame{int(picked[-2]+picked[-1])-1}"
                 trybe_sylab = eval(f"{picked}.code_name")
                 text2 = eval(f"sylabowe('{text2}',{encypher(picked2)},'{trybe_sylab}')")
-
-
-
+            elif event.key == pygame.K_RETURN:
+                if picked2 == "frame7":text1 += " "
+                elif picked2 == "frame8":text2 += " "
             elif event.key == pygame.K_BACKSPACE:
                 code_name = eval(f"{picked}.code_name")
                 if picked2 == "frame8":
@@ -103,7 +103,7 @@ while active:
                                 break
                         if picked == "frame1":text2 = eval(f"{code_name}('{text1}',True,'GADERYPOLUKI')")
                         elif picked == "frame6":text2 = eval(f"{code_name}('{text1}',True,'{trybe_cezar}')")
-                        elif picked == "frame2" or picked == "frame3" or picked == "frame4" or picked == "frame5":text2 = eval(f"{code_name}('{text2}',True)")
+                        elif picked == "frame2" or picked == "frame3" or picked == "frame4" or picked == "frame5":text2 = eval(f"{code_name}('{text1}',True)")
             else:
                 code_name = eval(f"{picked}.code_name")
                 if picked2 == "frame8":
@@ -122,12 +122,12 @@ while active:
                     for i in range(10,21):
                         if f"frame{i}" == picked:
                             trybe_sylab = eval(f"{picked}.code_name")
-                            print(trybe_sylab)
                             text2 = eval(f"sylabowe('{text1}',{encypher(picked2)},'{trybe_sylab}')")
                             break
                     if picked == "frame1":text2 = eval(f"{code_name}('{text1}',True,'GADERYPOLUKI')")
                     elif picked == "frame6":text2 = eval(f"{code_name}('{text1}',True,'{trybe_cezar}')")
-                    elif picked == "frame2" or picked == "frame3" or picked == "frame4" or picked == "frame5":text2 = eval(f"{code_name}('{text2}',True)")
+                    elif picked == "frame2" or picked == "frame3" or picked == "frame4" or picked == "frame5":
+                        text2 = eval(f"{code_name}('{text1}',True)")
                 else:
                     print(picked2)
         elif event.type == pygame.QUIT:
@@ -186,7 +186,6 @@ while active:
                         break
                 if not done:
                     text2 = cezara(text1,encypher(picked2),trybe_cezar)
-                    print("AAAAAAAAAAAAAAAAAAAAAAAAa")
     if frame1.rect.collidepoint(pygame.mouse.get_pos()) or picked == "frame1":
         passa = True
     if sylab.isshown(passa,frame1,picked):screen.blit(sylab.image,sylab.rect)
