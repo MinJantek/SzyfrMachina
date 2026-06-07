@@ -24,6 +24,7 @@ frame8 = Frame((230,406),"SzyfrMachina_1000.300.png","")
 frame9 = Rectangle((790,730),"SzyfrMachina_lever.png")
 sylab = Rectangle((20,80),"SzyfrMachina_sylab.png")
 clear = Rectangle((1130,700),"SzyfrMachina_clear.png")
+custom = Rectangle((20,730),"SzyfrMachina_200.60.png")
 
 frame10 = Frame((20,80),"SzyfrMachina_200.60.png","MALIOWEBUTY")
 frame11 = Frame((20,140),"SzyfrMachina_200.60.png","NOWEBUTYLISA")
@@ -43,6 +44,7 @@ code = True
 trybe_sylab = "GADERYPOLUKI"
 trybe_cezar = 0
 while active:
+    
     screen.blit(background,(0,0))
     if picked2 == "frame7": screen.blit(lever,(765,730))
     elif picked2 == "frame8": screen.blit(lever,(815,730))
@@ -191,6 +193,8 @@ while active:
             elif clear.rect.collidepoint(pygame.mouse.get_pos()):
                 text1 = ""
                 text2 = ""
+            elif custom.rect.collidepoint(pygame.mouse.get_pos()):
+                picked2 = "custom"
     if frame1.rect.collidepoint(pygame.mouse.get_pos()) or picked == "frame1":
         passa = True
     if sylab.isshown(passa,frame1,picked):screen.blit(sylab.image,sylab.rect)
@@ -198,7 +202,7 @@ while active:
     for i in range(1,21):
         a = eval(f"frame{i}.render('{picked}','{picked2}','frame{i}',{passa})")
         eval(f"{a}")
-    #średnia długość - ilość pikseli zajmowanych przez tekst / ilość znaków w tekście
+    eval(f"[{custom.render(picked,picked2,'custom',{passa})}]")
     #tekst linijki - text1[int(i//srednia1):int((i+pixele_tekstu)//srednia1)]
     #ilość linijek - font.size(text1)[0]/pixele_tekstu
     #
