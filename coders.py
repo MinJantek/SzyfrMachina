@@ -105,10 +105,45 @@ def sylabowe(txt, code, tryb):
             result.append(letter)
     
     return ''.join(result)
-
+dictionary = {
+        'A': '.-',    'B': '-...',  'C': '-.-.',  'D': '-..',   'E': '.',
+        'F': '..-.',  'G': '--.',   'H': '....',  'I': '..',    'J': '.---',
+        'K': '-.-',   'L': '.-..',  'M': '--',    'N': '-.',    'O': '---',
+        'P': '.--.',  'Q': '--.-',  'R': '.-.',   'S': '...',   'T': '-',
+        'U': '..-',   'V': '...-',  'W': '.--',   'X': '-..-',  'Y': '-.--',
+        'Z': '--..',  '0': '-----', '1': '.----', '2': '..---', '3': '...--',
+        '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..',
+        '9': '----.', '.': '.-.-.-', ',': '--..--', '?': '..--..', "'": '.----.',
+        '!': '-.-.--', '/': '-..-.', '(': '-.--.', ')': '-.--.-', '&': '.-...',
+        ':': '---...', ';': '-.-.-.', '=': '-...-', '+': '.-.-.', '-': '-....-',
+        '_': '..--.-', '"': '.-..-.', '$': '...-..-', '@': '.--.-.', ' ': ''
+    }
 
 def morsa(txt,code):
-    return "2"
+
+    reverse_dictionary = {v: k for k, v in dictionary.items()}
+
+
+    coded = ""
+    if code:
+        for a in txt:
+            if a.islower(): a = a.upper()
+            if a in dictionary:
+                coded += dictionary[a] + "/"
+        coded = coded[:-1]
+        return coded
+    else:
+        words = txt.split('//')
+        result = []
+        for word in words:
+            morse_codes = word.split('/')
+            letters = []
+            for morse in morse_codes:
+                if morse in reverse_dictionary:
+                    letters.append(reverse_dictionary[morse])
+            result.append(''.join(letters))
+        
+        return ' '.join(result)
 
     
 
@@ -169,4 +204,5 @@ def komorkowy(txt,code):
     return "5"
 def cezara(txt,code,trybe):
     return "6"
+
 
