@@ -17,14 +17,17 @@ frame2 = Frame((220,20),"SzyfrMachina_200.60.png","morsa")
 frame3 = Frame((420,20),"SzyfrMachina_200.60.png","matematyczny")
 frame4 = Frame((620,20),"SzyfrMachina_200.60.png","ulamkowy")
 frame5 = Frame((820,20),"SzyfrMachina_200.60.png","komorkowy")
-frame6 = Frame((1020,20),"SzyfrMachina_200.60.png","cezara")
+frame6 = Frame((1020,20),"SzyfrMachina_50.50.png","cezara")
 
 frame7 = Frame((230,106),"SzyfrMachina_1000.300.png","")
 frame8 = Frame((230,406),"SzyfrMachina_1000.300.png","")
 frame9 = Rectangle((790,730),"SzyfrMachina_lever.png")
 sylab = Rectangle((20,80),"SzyfrMachina_sylab.png")
 clear = Rectangle((1130,700),"SzyfrMachina_clear.png")
-custom = Rectangle((20,740),"SzyfrMachina_200.60.png")
+custom = Rectangle((20,740),"SzyfrMachina_200.50.png")
+up = Rectangle((1195,20),"SzyfrMachina_26.16.png")
+down = Rectangle((1195,64),"SzyfrMachina_26.16.png")
+number = Rectangle((1195,38),"SzyfrMachina_26.16.png")
 
 frame10 = Frame((20,80),"SzyfrMachina_200.60.png","MALIOWEBUTY")
 frame11 = Frame((20,140),"SzyfrMachina_200.60.png","NOWEBUTYLISA")
@@ -45,7 +48,6 @@ code = True
 trybe_sylab = "GADERYPOLUKI"
 trybe_cezar = 0
 while active:
-    
     screen.blit(background,(0,0))
     if picked2 == "frame7": screen.blit(lever,(765,730))
     elif picked2 == "frame8": screen.blit(lever,(815,730))
@@ -55,6 +57,12 @@ while active:
             if event.key == pygame.K_ESCAPE:
                 active = False
                 print(text1)
+                print("--------------------")
+                nazwa = eval(f"{picked}.code_name")
+                if nazwa.upper() == "CUSTOM":nazwa = custom_txt
+                if nazwa == "cezar": nazwa = f"cezar: {trybe_cezar}"
+                print(nazwa)
+                print("--------------------")
                 print(text2)
             elif event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 if event.key == pygame.K_LEFT and not picked[-2].isdigit():
@@ -112,8 +120,11 @@ while active:
                         elif picked == "frame6":text2 = eval(f"{code_name}('{text1}',True,'{trybe_cezar}')")
                         elif picked == "frame2" or picked == "frame3" or picked == "frame4" or picked == "frame5":text2 = eval(f"{code_name}('{text1}',True)")
                 elif picked2 == "custom":
-                    if custom_txt: 
-                        custom_txt = custom_txt[:-1]
+                    if custom_txt:custom_txt = custom_txt[:-1]
+                elif picked2 == "number":
+                    trybe_cezar = str(trybe_cezar)[:-1]
+                    if trybe_cezar and trybe_cezar != "-":trybe_cezar = int(trybe_cezar)
+                    elif not trybe_cezar: trybe_cezar = 0
             else:
                 code_name = eval(f"{picked}.code_name")
                 if picked2 == "frame8":
@@ -141,11 +152,21 @@ while active:
                     elif picked == "frame6":text2 = eval(f"{code_name}('{text1}',True,'{trybe_cezar}')")
                     elif picked == "frame2" or picked == "frame3" or picked == "frame4" or picked == "frame5":
                             text2 = eval(f"{code_name}('{text1}',True)")
-                elif picked2 == "custom":
-                    custom_txt += str(event.unicode).upper()
+                elif picked2 == "custom":custom_txt += str(event.unicode).upper()
+                elif picked2 == "number":
+                    if not trybe_cezar:
+                        if event.unicode == "-":trybe_cezar = "-"
+                        else:trybe_cezar = int(str(trybe_cezar)+event.unicode)
+                    else:trybe_cezar = int(str(trybe_cezar)+event.unicode)
         elif event.type == pygame.QUIT:
             active = False
             print(text1)
+            print("--------------------")
+            nazwa = eval(f"{picked}.code_name")
+            if nazwa.upper() == "CUSTOM":nazwa = custom_txt
+            if nazwa == "cezara": nazwa = f"cezara: {trybe_cezar}"
+            print(nazwa)
+            print("--------------------")
             print(text2)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             for i in range(2,6):
@@ -200,8 +221,8 @@ while active:
                 picked = "frame6"
                 for b in range(10,21):
                     if before == f"frame{b}" or before == "frame1" or before == "frame6":
-                        if picked2 == "frame7":text2 = eval(f"cezara('{text1}',{encypher(picked2)},{trybe_cezar})")
-                        elif picked2 == "frame8":text1 = eval(f"cezara('{text2}',{encypher(picked2)},{trybe_cezar})")
+                        if picked2 == "frame7":text2 = eval(f"cezara('{text1}',True,{trybe_cezar})")
+                        elif picked2 == "frame8":text1 = eval(f"cezara('{text2}',False,{trybe_cezar})")
                         done = True
                         print(before)
                         break
@@ -211,8 +232,18 @@ while active:
                 text1 = ""
                 text2 = ""
                 custom_txt = ""
-            elif custom.rect.collidepoint(pygame.mouse.get_pos()):
-                picked2 = "custom"
+            elif custom.rect.collidepoint(pygame.mouse.get_pos()):picked2 = "custom"
+            elif up.rect.collidepoint(pygame.mouse.get_pos()):
+                print(isinstance(trybe_cezar,int))
+                trybe_cezar += 1
+                if picked2 == "frame7":text2 = cezara(text1,True,trybe_cezar)
+                elif picked2 == "frame8":text1 = eval(f"cezara('{text2}',False,{trybe_cezar})")
+            elif down.rect.collidepoint(pygame.mouse.get_pos()):
+                print(isinstance(trybe_cezar,int))
+                trybe_cezar -= 1
+                if picked2 == "frame7":text2 = eval(f"cezara('{text1}',True,{trybe_cezar})")
+                elif picked2 == "frame8":text1 = eval(f"cezara('{text2}',False,{trybe_cezar})")
+            elif number.rect.collidepoint(pygame.mouse.get_pos()):picked2 = "number"
     if frame1.rect.collidepoint(pygame.mouse.get_pos()) or picked == "frame1":
         passa = True
     if sylab.isshown(passa,frame1,picked):screen.blit(sylab.image,sylab.rect)
@@ -221,8 +252,15 @@ while active:
         a = eval(f"frame{i}.render('{picked}','{picked2}','frame{i}',{passa})")
         eval(f"{a}")
     eval(f"[{custom.render(picked,picked2,'custom',{passa})}]")
+    eval(f"[{up.render(picked,picked2,'up',{passa})}]")
+    eval(f"[{down.render(picked,picked2,'down',{passa})}]")
+
+    eval(f"[{number.render(picked,picked2,'number',{passa})}]")
     #tekst linijki - text1[int(i//srednia1):int((i+pixele_tekstu)//srednia1)]
     #ilość linijek - font.size(text1)[0]/pixele_tekstu
+    font =pygame.font.SysFont("",25)
+    screen.blit(font.render(str(trybe_cezar),False,(0,0,0)),(1207.5-font.size(str(trybe_cezar))[0]/2,43))
+    font =pygame.font.SysFont("",30)
     screen.blit(font.render(custom_txt,False,(255,255,255)),(30,745))
     srednia1 = font.size(text1)[0]/len(text1) if text1 else 0
     srednia2 = font.size(text2)[0]/len(text2) if text2 else 0

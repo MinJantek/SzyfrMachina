@@ -196,13 +196,21 @@ def matematyczny(txt: str, code: bool) -> str:
         return result
 
 
-
+alfabet = "AĄBCĆDEĘFGHIJKLŁMNŃOÓPQRSŚTUVWXYZŹŻ"
 
 def ulamkowy(txt,code):
     return "4"
 def komorkowy(txt,code):
     return "5"
 def cezara(txt,code,trybe):
-    return "6"
+    coded = ""
+    if code:
+        for letter in txt.upper():
+            print(alfabet.find(letter))
+            coded += alfabet[alfabet.find(letter)+int(trybe)]
+    else:
+        for letter in txt:coded += alfabet[alfabet.find(letter)+int(f"-{trybe}")]
+    return coded
 
+print(alfabet.find('b'))
 

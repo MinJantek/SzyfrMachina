@@ -35,6 +35,8 @@ class Rectangle(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load(f"{IMAGE_PATH}/{file}")
         self.rect = self.image.get_rect(topleft = coordinates)
+        self.image2 = copy.copy(self.image)
+        self.image2.fill((130,130,130),special_flags=pygame.BLEND_ADD)
 
 
     def isshown(self,passa,frame1,picked):
@@ -51,8 +53,6 @@ class Rectangle(pygame.sprite.Sprite):
     def render(self,picked,picked2,name,passa):
         if name == picked or name == picked2: return f"screen.blit({name}.image,{name}.rect)"
         if self.rect.collidepoint(pygame.mouse.get_pos()):
-            self.image2 = copy.copy(self.image)
-            self.image2.fill((130,130,130),special_flags=pygame.BLEND_ADD)
             return f"screen.blit({name}.image2,{name}.rect)"
 
 
