@@ -37,6 +37,7 @@ frame19 = Frame((20,620),"SzyfrMachina_200.60.png","AMĄNBŃCOĆÓDPERĘSFŚGTHU
 frame20 = Frame((20,680),"SzyfrMachina_200.60.png","CUSTOM")
 text1 = ""
 text2 = ""
+custom_txt = ""
 passa = False
 code = True 
 trybe_sylab = "GADERYPOLUKI"
@@ -104,6 +105,9 @@ while active:
                         if picked == "frame1":text2 = eval(f"{code_name}('{text1}',True,'GADERYPOLUKI')")
                         elif picked == "frame6":text2 = eval(f"{code_name}('{text1}',True,'{trybe_cezar}')")
                         elif picked == "frame2" or picked == "frame3" or picked == "frame4" or picked == "frame5":text2 = eval(f"{code_name}('{text2}',True)")
+                elif picked2 == "custom":
+                    if custom_txt: 
+                        custom_txt = custom_txt[:-1]
             else:
                 code_name = eval(f"{picked}.code_name")
                 if picked2 == "frame8":
@@ -128,6 +132,8 @@ while active:
                     if picked == "frame1":text2 = eval(f"{code_name}('{text1}',True,'GADERYPOLUKI')")
                     elif picked == "frame6":text2 = eval(f"{code_name}('{text1}',True,'{trybe_cezar}')")
                     elif picked == "frame2" or picked == "frame3" or picked == "frame4" or picked == "frame5":text2 = eval(f"{code_name}('{text2}',True)")
+                elif picked2 == "custom":
+                    custom_txt += str(event.unicode)
                 else:
                     print(picked2)
         elif event.type == pygame.QUIT:
@@ -139,12 +145,12 @@ while active:
                 if eval(f"frame{i}.rect.collidepoint(pygame.mouse.get_pos())"):
                     picked = f"frame{i}"
                     code_name = eval(f"{picked}.code_name")
-                    if picked == "frame6":text2 = eval(f"{code_name}('{text2}',{encypher(picked2)},{trybe_cezar})")
+                    if picked == "frame6":text2 = eval(f"{code_name}('{text1}',{encypher(picked2)},{trybe_cezar})")
                     elif picked == "frame1":
                         print(code_name)
                         if picked2 == "frame7":text2 = eval(f"{code_name}('{text1}',{encypher(picked2)},'GADERYPOLUKI')")
                         elif picked2 == "frame8":text1 = eval(f"{code_name}('{text2}',{encypher(picked2)},'GADERYPOLUKI')")
-                    else:text2 = eval(f"{code_name}('{text2}',{encypher(picked2)})")
+                    else:text2 = eval(f"{code_name}('{text1}',{encypher(picked2)})")
                     break   
             for i in range(7,10):
                 if eval(f"frame{i}.rect.collidepoint(pygame.mouse.get_pos())"):
