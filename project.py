@@ -24,7 +24,7 @@ frame8 = Frame((230,406),"SzyfrMachina_1000.300.png","")
 frame9 = Rectangle((790,730),"SzyfrMachina_lever.png")
 sylab = Rectangle((20,80),"SzyfrMachina_sylab.png")
 clear = Rectangle((1130,700),"SzyfrMachina_clear.png")
-custom = Rectangle((20,730),"SzyfrMachina_200.60.png")
+custom = Rectangle((20,740),"SzyfrMachina_200.60.png")
 
 frame10 = Frame((20,80),"SzyfrMachina_200.60.png","MALIOWEBUTY")
 frame11 = Frame((20,140),"SzyfrMachina_200.60.png","NOWEBUTYLISA")
@@ -35,7 +35,7 @@ frame15 = Frame((20,380),"SzyfrMachina_200.60.png","REGULAMINOWY")
 frame16 = Frame((20,440),"SzyfrMachina_200.60.png","KACEMINUTOWY")
 frame17 = Frame((20,500),"SzyfrMachina_200.60.png","BITWAOCHMURY")
 frame18 = Frame((20,560),"SzyfrMachina_200.60.png","HALOJUPITERY")
-frame19 = Frame((20,620),"SzyfrMachina_200.60.png","AMĄNBŃCOĆÓDPERĘSFŚGTHUIWJYYKZLŹŁŻ")
+frame19 = Frame((20,620),"SzyfrMachina_200.60.png","AMĄNBŃCOĆÓDPERĘSFŚGTHUIWJYKZLŹŁŻ")
 frame20 = Frame((20,680),"SzyfrMachina_200.60.png","CUSTOM")
 text1 = ""
 text2 = ""
@@ -91,7 +91,8 @@ while active:
                         for i in range(10,21):
                             if f"frame{i}" == picked:
                                 trybe_sylab = eval(f"{picked}.code_name")
-                                print(trybe_sylab)
+                                if trybe_sylab == "CUSTOM":
+                                    if custom_txt:trybe_sylab = custom_txt
                                 text1 = eval(f"sylabowe('{text2}',{encypher(picked2)},'{trybe_sylab}')")
                                 break
                         if picked == "frame1":text1 = eval(f"{code_name}('{text2}',False,'GADERYPOLUKI')")
@@ -103,7 +104,8 @@ while active:
                         for i in range(10,21):
                             if f"frame{i}" == picked:
                                 trybe_sylab = eval(f"{picked}.code_name")
-                                print(trybe_sylab)
+                                if trybe_sylab == "CUSTOM":
+                                    if custom_txt:trybe_sylab = custom_txt
                                 text2 = eval(f"sylabowe('{text1}',{encypher(picked2)},'{trybe_sylab}')")
                                 break
                         if picked == "frame1":text2 = eval(f"{code_name}('{text1}',True,'GADERYPOLUKI')")
@@ -119,7 +121,8 @@ while active:
                     for i in range(10,21):
                         if f"frame{i}" == picked:
                             trybe_sylab = eval(f"{picked}.code_name")
-                            print(trybe_sylab)
+                            if trybe_sylab == "CUSTOM":
+                                if custom_txt:trybe_sylab = custom_txt
                             text1 = eval(f"sylabowe('{text2}',{encypher(picked2)},'{trybe_sylab}')")
                             break
                     if picked == "frame1":text1 = eval(f"{code_name}('{text2}',False,'GADERYPOLUKI')")
@@ -130,17 +133,16 @@ while active:
                     for i in range(10,21):
                         if f"frame{i}" == picked:
                             trybe_sylab = eval(f"{picked}.code_name")
+                            if trybe_sylab == "CUSTOM":
+                                if custom_txt:trybe_sylab = custom_txt
                             text2 = eval(f"sylabowe('{text1}',{encypher(picked2)},'{trybe_sylab}')")
                             break
                     if picked == "frame1":text2 = eval(f"{code_name}('{text1}',True,'GADERYPOLUKI')")
                     elif picked == "frame6":text2 = eval(f"{code_name}('{text1}',True,'{trybe_cezar}')")
-
                     elif picked == "frame2" or picked == "frame3" or picked == "frame4" or picked == "frame5":
                             text2 = eval(f"{code_name}('{text1}',True)")
                 elif picked2 == "custom":
-                    custom_txt += str(event.unicode)
-                else:
-                    print(picked2)
+                    custom_txt += str(event.unicode).upper()
         elif event.type == pygame.QUIT:
             active = False
             print(text1)
@@ -162,7 +164,8 @@ while active:
             for i in range(7,10):
                 if eval(f"frame{i}.rect.collidepoint(pygame.mouse.get_pos())"):
                     if i == 9 and picked2 == "frame7": i = 8
-                    if i == 9 and picked2 == "frame8": i = 7
+                    elif i == 9 and picked2 == "frame8": i = 7
+                    else: i = 7
                     picked2 = f"frame{i}"
                     break
             for i in range(10,21):
@@ -171,6 +174,8 @@ while active:
                     before = picked
                     picked = f"frame{i}"
                     code_name = eval(f"{picked}.code_name")
+                    if code_name == "CUSTOM":
+                                if custom_txt:code_name = custom_txt
                     for b in range(10,21):
                         if before == f"frame{b}" or before == "frame1" or before == "frame6":
                             if picked2 == "frame7":text2 = eval(f"sylabowe('{text1}',{encypher(picked2)},'{code_name}')")
@@ -205,6 +210,7 @@ while active:
             elif clear.rect.collidepoint(pygame.mouse.get_pos()):
                 text1 = ""
                 text2 = ""
+                custom_txt = ""
             elif custom.rect.collidepoint(pygame.mouse.get_pos()):
                 picked2 = "custom"
     if frame1.rect.collidepoint(pygame.mouse.get_pos()) or picked == "frame1":
@@ -217,7 +223,7 @@ while active:
     eval(f"[{custom.render(picked,picked2,'custom',{passa})}]")
     #tekst linijki - text1[int(i//srednia1):int((i+pixele_tekstu)//srednia1)]
     #ilość linijek - font.size(text1)[0]/pixele_tekstu
-    #
+    screen.blit(font.render(custom_txt,False,(255,255,255)),(30,745))
     srednia1 = font.size(text1)[0]/len(text1) if text1 else 0
     srednia2 = font.size(text2)[0]/len(text2) if text2 else 0
     for i in range(0,font.size(text1)[0],pixele_tekstu):
@@ -225,3 +231,5 @@ while active:
     for i in range(0,font.size(text2)[0],pixele_tekstu):
         screen.blit(font.render(text2[int(i//srednia2):int((i+pixele_tekstu)//srednia2)],False,(255,255,255)),(240,416+i/pixele_tekstu*font.size(text2)[1]))
     pygame.display.flip()
+
+screen.blit(font.render(text1,False,(255,255,255)),(240,116))
