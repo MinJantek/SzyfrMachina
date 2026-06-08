@@ -186,8 +186,13 @@ while active:
                 if eval(f"frame{i}.rect.collidepoint(pygame.mouse.get_pos())"):
                     if i == 9 and picked2 == "frame7": i = 8
                     elif i == 9 and picked2 == "frame8": i = 7
-                    else: i = 7
+                    elif i == 9: i = 7
                     picked2 = f"frame{i}"
+                    if picked == "frame6":
+                        print(picked2)
+                        if picked2 == "frame7":text2 = cezara(text1,True,trybe_cezar)
+                        elif picked2 == "frame8":text1 = cezara(text2,False,trybe_cezar)
+
                     break
             for i in range(10,21):
                 if eval(f"frame{i}.rect.collidepoint(pygame.mouse.get_pos())") and passa == True:
@@ -264,9 +269,9 @@ while active:
     screen.blit(font.render(custom_txt,False,(255,255,255)),(30,745))
     srednia1 = font.size(text1)[0]/len(text1) if text1 else 0
     srednia2 = font.size(text2)[0]/len(text2) if text2 else 0
-    for i in range(0,font.size(text1)[0],pixele_tekstu):
+    for i in range(0,font.size(str(text1))[0],pixele_tekstu):
         screen.blit(font.render(text1[int(i//srednia1):int((i+pixele_tekstu)//srednia1)],False,(255,255,255)),(240,116+i/pixele_tekstu*font.size(text1)[1]))
-    for i in range(0,font.size(text2)[0],pixele_tekstu):
+    for i in range(0,font.size(str(text2))[0],pixele_tekstu):
         screen.blit(font.render(text2[int(i//srednia2):int((i+pixele_tekstu)//srednia2)],False,(255,255,255)),(240,416+i/pixele_tekstu*font.size(text2)[1]))
     pygame.display.flip()
 

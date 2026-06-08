@@ -1,5 +1,10 @@
 import random
-
+def findInBigList(list, letter):
+    for a in range(len(list)):
+        if letter in list[a]:
+            b = list[a].index(letter)
+            return (a, b)
+    return None
 matma = {
     "A" : 1,
     "Ą" : 1,
@@ -200,8 +205,38 @@ alfabet = "AĄBCĆDEĘFGHIJKLŁMNŃOÓPQRSŚTUVWXYZŹŻ"
 
 def ulamkowy(txt,code):
     return "4"
+komorka = [
+    ["A","B","C","D","E"],
+    ["F","G","H","i","j"],
+    ["K","L","M","N","O"],
+    ["P","R","S","T","U"],
+    ["W","Y","Z"]
+]
 def komorkowy(txt,code):
-    return "5"
+    coded = ""
+
+    if not code:
+        second = False
+        for numb in txt:
+            if numb == "/":second = True
+            else:
+                if not second and numb != " " and numb != ",":
+                    pierwsza = int(numb)
+                if second:
+                    droga = int(numb)
+                    second = False
+                    coded += komorka[droga-1][pierwsza-1]
+        return coded
+    else:
+        for letter in txt.upper():
+            a = findInBigList(komorka,letter)
+            coded += f"{a[1]+1}/{a[0]+1}, "
+        coded = coded[:-2]
+        return coded
+            
+print(findInBigList(komorka,"B"))
+
+
 def cezara(txt,code,trybe):
     coded = ""
     if code:
@@ -212,5 +247,5 @@ def cezara(txt,code,trybe):
         for letter in txt:coded += alfabet[alfabet.find(letter)+int(f"-{trybe}")]
     return coded
 
-print(alfabet.find('b'))
+
 
