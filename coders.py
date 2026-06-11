@@ -159,7 +159,7 @@ for letter, number in matma.items():
     if number not in reverse_matma:
         reverse_matma[number] = letter
 
-math_signs = ["+", "-", "*", ":"]
+math_signs = ["+", "-", "*", ":", "=", "%", "^", "(", ")", "[", "]", "{", "}", "<", ">", "|", "~", "/"]
 
 def matematyczny(txt: str, code: bool) -> str:
     if code:
@@ -202,17 +202,14 @@ def matematyczny(txt: str, code: bool) -> str:
 
 
 alfabet = "AĄBCĆDEĘFGHIJKLŁMNŃOÓPQRSŚTUVWXYZŹŻ"
-
-def ulamkowy(txt,code):
-    return "4"
-komorka = [
+ulamek = [
     ["A","B","C","D","E"],
     ["F","G","H","i","j"],
     ["K","L","M","N","O"],
     ["P","R","S","T","U"],
     ["W","Y","Z"]
 ]
-def komorkowy(txt,code):
+def ulamkowy(txt,code):
     coded = ""
 
     if not code:
@@ -225,27 +222,69 @@ def komorkowy(txt,code):
                 if second:
                     droga = int(numb)
                     second = False
-                    coded += komorka[droga-1][pierwsza-1]
+                    coded += ulamek[droga-1][pierwsza-1]
         return coded
     else:
         for letter in txt.upper():
-            a = findInBigList(komorka,letter)
+            a = findInBigList(ulamek,letter)
             coded += f"{a[1]+1}/{a[0]+1}, "
         coded = coded[:-2]
         return coded
-            
-print(findInBigList(komorka,"B"))
+
+komorka = [
+    ["A","B","C"],
+    ["D","E","F"],
+    ["G","H","I"],
+    ["J","K","L"],
+    ["M","N","O"],
+    ["P","Q","R","S"],
+    ["T","U","V"],
+    ["W","X","Y","Z"]
+]
+def komorkowy(txt,code):
+    coded = ""
+    if code:
+        for letter in txt.upper():
+            a = findInBigList(komorka,letter)
+            coded += f"{str(a[0]+2)*int(a[1]+1)} "
+        coded = coded[:-1]
+        return coded
+    else:
+        if txt:
+            for number in txt.split(" "):
+                number = number.replace(" ", "")
+                print(number)
+                if number:
+                    a = len(number)
+                    for i in range(a):
+                        if number[i] != str(number)[0]:
+                            coded = "NIEPRAWIDŁOWY KOD"
+                            break
+                    coded += komorka[int(number[0])-2][a-1]
+        return coded
 
 
 def cezara(txt,code,trybe):
     coded = ""
     if code:
+        trybe = int(trybe)
         for letter in txt.upper():
-            print(alfabet.find(letter))
+            while alfabet.find(letter)+int(trybe) >= len(alfabet):
+                trybe -= len(alfabet)
+            while alfabet.find(letter)+int(trybe) < 0:
+                trybe += len(alfabet)
             coded += alfabet[alfabet.find(letter)+int(trybe)]
     else:
-        for letter in txt:coded += alfabet[alfabet.find(letter)+int(f"-{trybe}")]
+        trybe = -int(trybe)
+        for letter in txt.upper():
+            while alfabet.find(letter)+int(trybe) < 0:
+                trybe += len(alfabet)
+            while alfabet.find(letter)+int(trybe) >= len(alfabet):
+                trybe -= len(alfabet)
+            coded += alfabet[alfabet.find(letter)+int(trybe)]
     return coded
+
+
 
 
 
