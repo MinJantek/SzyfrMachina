@@ -159,7 +159,7 @@ for letter, number in matma.items():
     if number not in reverse_matma:
         reverse_matma[number] = letter
 
-math_signs = ["+", "-", "*", ":", "=", "%", "^", "(", ")", "[", "]", "{", "}", "<", ">", "|", "~", "/"]
+math_signs = ["+", "-", "*", ":", "=", "%", "^", "<", ">", "/"]
 
 def matematyczny(txt: str, code: bool) -> str:
     if code:
@@ -246,7 +246,7 @@ def komorkowy(txt,code):
     if code:
         for letter in txt.upper():
             a = findInBigList(komorka,letter)
-            coded += f"{str(a[0]+2)*int(a[1]+1)} "
+            if a != None:coded += f"{str(a[0]+2)*int(a[1]+1)} "
         coded = coded[:-1]
         return coded
     else:
