@@ -189,8 +189,8 @@ while active:
                         elif picked == "frame20":
                             if custom_txt:code_name = custom_txt
                             else:code_name = "CUSTOM"
-                            if picked2 == "frame7":text2 = cezara(text1,True,code_name)
-                            elif picked2 == "frame8":text1 = cezara(text2,False,code_name)
+                            if picked2 == "frame7":text2 = sylabowe(text1,True,code_name)
+                            elif picked2 == "frame8":text1 = sylabowe(text2,False,code_name)
 
                         break
                 for i in range(10,21):
